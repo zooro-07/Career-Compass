@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results | Career Compass</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="anime-theme">
+    <div class="container">
+        <h2>Your Recommended Careers 🌟</h2>
+        {% if results %}
+            <ul class="results-list">
+                {% for career, score in results %}
+                    <li>{{ career }} — Score: {{ score }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No strong matches found. Try selecting different interests.</p>
+        {% endif %}
+        <a href="{{ url_for('graph') }}" class="btn">View Visual Graph</a>
+        <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+    </div>
+</body>
+</html>
