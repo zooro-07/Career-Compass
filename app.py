@@ -1,7 +1,6 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-
 from logic.quiz_questions import quiz_questions
 from logic.career_data import match_careers
 from logic.chatbot import chatbot_response
@@ -49,17 +48,6 @@ def quiz():
         return render_template('result.html', results=results)
     return render_template('quiz.html', questions=quiz_questions)
 
-@app.route('/logout')
-def logout():
-    session.pop('user', None)
-    return redirect(url_for('index'))
-
-@app.route('/chatbot', methods=['POST'])
-def chat():
-    user_msg = request.form['message']
-    reply = chatbot_response(user_msg)
-    return reply
-
 @app.route('/quizbot', methods=['GET', 'POST'])
 def quizbot():
     if 'quiz_step' not in session:
@@ -84,8 +72,27 @@ def quizbot():
 
     return render_template('quizbot.html', question=current_q['q'])
 
-# ✅ Final: Only one main block with correct port for Render
+@app.route('/chatbot', methods=['POST'])
+def chat():
+    user_msg = request.form['message']
+    reply = chatbot_response(user_msg)
+    return jsonify({'reply': reply})
+
+@app.route('/graph')
+def graph():
+    data = {
+        'labels': ['Engineering', 'Medicine', 'Arts', 'Commerce'],
+        'values': [40, 30, 20, 10]
+    }
+    return render_template('graph.html', data=data)
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('index'))
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
