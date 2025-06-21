@@ -1,13 +1,26 @@
 <!DOCTYPE html>
-<html>
-<head><title>Login</title></head>
-<body>
-  <h2>Login</h2>
-  <form method="post">
-    <input name="username" required placeholder="Username"><br>
-    <input name="password" type="password" required placeholder="Password"><br>
-    <button type="submit">Login</button>
-  </form>
-  <p>Don't have an account? <a href="/register">Register</a></p>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Career Compass</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="anime-theme">
+    <div class="container">
+        <h2>Login</h2>
+        <form method="POST">
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
 </body>
 </html>
