@@ -1,12 +1,98 @@
+<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Career Compass</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(270deg, #0f0f0f, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        p {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 1rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            background: #ff3cac;
+            background: linear-gradient(45deg, #ff3cac, #784ba0, #2b86c5);
+            color: white;
+            cursor: pointer;
+            transition: 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 50%;
+            padding: 15px;
+            box-shadow: 0 0 20px #ff3cac;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .chatbot-icon:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
-<body class="anime-theme">
+<body>
     <div class="container">
-        <h1>Welcome to Career Compass 🚀</h1>
+        <h1>Welcome to <span style="color:#00d4ff;">Career Compass</span> 🚀</h1>
         <p>Discover your career path through our smart quiz and guidance system.</p>
-        <div class="b
+        <a class="btn" href="/quiz">Start Quiz</a>
+        <a class="btn" href="/login">Login</a>
+        <a class="btn" href="/roadmap">Roadmap</a>
+        <a class="btn" href="/visuals">Graphs</a>
+    </div>
+
+    <a href="/chatbot"><img class="chatbot-icon" src="https://cdn-icons-png.flaticon.com/512/4712/4712106.png" alt="Chatbot"></a>
+</body>
+</html>
