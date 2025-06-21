@@ -62,3 +62,28 @@ def chat():
     user_msg = request.form['message']
     reply = chatbot_response(user_msg)
     return reply
+@app.route('/quizbot', methods=['GET', 'POST'])
+def quizbot():
+    if 'quiz_step' not in session:
+        session['quiz_step'] = 0
+        session['answers'] = []
+
+    step = session['quiz_step']
+    if step >= len(quiz_questions):
+        from logic.career_data import match_careers
+        result = match_careers(session['answers'])
+        session.pop('quiz_step')
+        session.pop('answers')
+        return render_template('result.html', results=result)
+
+    current_q = quiz_questions[step]
+
+    if request.method == 'POST':
+        user_response = request.form['answer']
+        if user_response.lower() == 'yes':
+            session['answers'].append(current_q['v'])
+        session['quiz_step'] += 1
+        return redirect(url_for('quizbot'))
+
+    return render_template('quizbot.html', question=current_q['q'])
+
