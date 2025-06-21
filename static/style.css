@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(120deg, #1e1e2f, #2c2c54);
+    color: #ffffff;
+    min-height: 100vh;
+    background-image: url("../static/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.anime-theme {
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.container {
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+    box-shadow: 0 0 20px #fff3;
+    text-align: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    background: #ff4757;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background 0.3s;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #ff6b81;
+}
+
+input[type="text"],
+input[type="password"],
+select {
+    padding: 10px;
+    width: 80%;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.question-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.results-list {
+    list-style: none;
+    padding: 0;
+}
+
+.results-list li {
+    background: rgba(255, 255, 255, 0.1);
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.flash {
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.flash.success {
+    background-color: #2ed573;
+    color: #000;
+}
+
+.flash.danger {
+    background-color: #ff6b81;
+    color: #000;
+}
+
+.chat-bubble {
+    background-color: #57606f;
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    max-width: 80%;
+}
