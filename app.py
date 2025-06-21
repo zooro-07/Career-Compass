@@ -1,18 +1,10 @@
 import os
-from flask import Flask, render_template, request
-app = Flask(__name__)
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
-
-from logic.chatbot import chatbot_response
-
-import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
+
 from logic.quiz_questions import quiz_questions
 from logic.career_data import match_careers
+from logic.chatbot import chatbot_response
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -62,14 +54,12 @@ def logout():
     session.pop('user', None)
     return redirect(url_for('index'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
 @app.route('/chatbot', methods=['POST'])
 def chat():
     user_msg = request.form['message']
     reply = chatbot_response(user_msg)
     return reply
+
 @app.route('/quizbot', methods=['GET', 'POST'])
 def quizbot():
     if 'quiz_step' not in session:
@@ -78,7 +68,6 @@ def quizbot():
 
     step = session['quiz_step']
     if step >= len(quiz_questions):
-        from logic.career_data import match_careers
         result = match_careers(session['answers'])
         session.pop('quiz_step')
         session.pop('answers')
@@ -92,9 +81,11 @@ def quizbot():
             session['answers'].append(current_q['v'])
         session['quiz_step'] += 1
         return redirect(url_for('quizbot'))
-    if __name__ == "__main__":
-      app.run()
- 
 
-      return render_template('quizbot.html', question=current_q['q'])
+    return render_template('quizbot.html', question=current_q['q'])
+
+# ✅ Final: Only one main block with correct port for Render
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
 
