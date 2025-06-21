@@ -1,3 +1,5 @@
+from logic.chatbot import chatbot_response
+
 import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -55,3 +57,8 @@ def logout():
 if __name__ == '__main__':
     app.run(debug=True)
 
+@app.route('/chatbot', methods=['POST'])
+def chat():
+    user_msg = request.form['message']
+    reply = chatbot_response(user_msg)
+    return reply
