@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Quiz | Career Compass</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="anime-theme">
+    <div class="container">
+        <h2>Interactive QuizBot 🤖</h2>
+        <form method="POST">
+            <div class="chat-bubble">{{ question }}</div>
+            <div class="btn-group">
+                <button type="submit" name="answer" value="yes" class="btn">Yes</button>
+                <button type="submit" name="answer" value="no" class="btn">No</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
