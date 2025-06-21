@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Career Results | Career Compass</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #e0f7ff, #fff5f7);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+    }
+    .card {
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 15px;
+    }
+    .btn {
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="mb-4 text-center">🎓 Your Career & College Recommendations</h2>
+
+    {% if results %}
+      {% for career, colleges in results.items() %}
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">{{ career }}</h4>
+            <p class="card-text">
+              Top Colleges:
+              <strong>{{ colleges|join(', ') }}</strong>
+            </p>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="alert alert-warning text-center">
+        No matches found. Try selecting more interests in the quiz.
+      </div>
+    {% endif %}
+
+    <div class="text-center mt-4">
+      <a href="/quiz" class="btn btn-primary">🔁 Retake Quiz</a>
+      <a href="/" class="btn btn-secondary">🏠 Go Home</a>
+    </div>
+  </div>
+</body>
+</html>
