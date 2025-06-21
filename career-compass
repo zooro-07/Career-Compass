@@ -1,0 +1,90 @@
+# Career Guider Flask App (main file)
+
+from flask import Flask, render_template, request, redirect, url_for, session
+
+app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'  # Needed for session handling
+
+# Dummy login credentials
+USERS = {
+    'student1': 'pass123',
+    'admin': 'admin123'
+}
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    error = ""
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        if username in USERS and USERS[username] == password:
+            session['user'] = username
+            return redirect(url_for('index'))
+        else:
+            error = "Invalid username or password."
+    return render_template("login.html", error=error)
+
+@app.route("/logout")
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    result = ""
+    reply = ""
+
+    if request.method == "POST":
+        if "quiz" in request.form:
+            q1 = request.form.get("q1", "").lower()
+            q2 = request.form.get("q2", "").lower()
+            q3 = request.form.get("q3", "").lower()
+
+            score = {"science": 0, "commerce": 0, "arts": 0}
+            if "math" in q1:
+                score["science"] += 1
+            elif "eco" in q1:
+                score["commerce"] += 1
+            else:
+                score["arts"] += 1
+
+            if "exp" in q2:
+                score["science"] += 1
+            elif "business" in q2:
+                score["commerce"] += 1
+            else:
+                score["arts"] += 1
+
+            if "engineer" in q3:
+                score["science"] += 1
+            elif "startup" in q3:
+                score["commerce"] += 1
+            else:
+                score["arts"] += 1
+
+            top = max(score, key=score.get)
+            if top == "science":
+                result = "Try Engineering, Doctor, or Scientist!"
+            elif top == "commerce":
+                result = "Try CA, BBA, or Marketing!"
+            else:
+                result = "Try Lawyer, Teacher, or Journalist!"
+
+        elif "chat" in request.form:
+            question = request.form.get("userInput", "").lower()
+            if "college" in question:
+                reply = "Try checking NIRF top colleges in India."
+            elif "engineering" in question and "bio" in question:
+                reply = "You can go for Biotechnology or Biomedical Engineering."
+            elif "exam" in question:
+                reply = "Try JEE, CUET, NEET depending on your path."
+            else:
+                reply = "Sorry, I didn't understand that question."
+
+    return render_template("index.html", result=result, reply=reply, user=session['user'])
+
+if __name__ == "__main__":
+    app.run(debug=True)
