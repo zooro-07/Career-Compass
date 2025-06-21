@@ -1,12 +1,16 @@
 def chatbot_response(message):
     message = message.lower()
-    if "engineer" in message:
-        return "Engineering is a versatile career — you can choose from mechanical, civil, computer, or electrical!"
-    elif "ai" in message or "artificial" in message:
-        return "AI is a booming field. Top careers include ML engineer, AI researcher, and data scientist."
-    elif "biology" in message:
-        return "If you love biology, consider careers like doctor, biologist, or geneticist."
-    elif "college" in message:
-        return "Top colleges include MIT, Harvard, Stanford, IITs and NITs depending on the field."
-    else:
-        return "I'm here to help! Ask me about careers, colleges, or subjects you love."
+
+    responses = {
+        "hello": "Hi there! How can I help you with your career today?",
+        "what is career compass": "Career Compass is a tool to help you discover suitable careers, courses, and colleges based on your interests.",
+        "how does this work": "You take a quiz based on your interests. Based on your responses, we suggest careers, courses, and colleges that fit you.",
+        "thank you": "You're welcome! 😊",
+        "bye": "Goodbye! Wish you success in your career journey!"
+    }
+
+    for keyword in responses:
+        if keyword in message:
+            return responses[keyword]
+
+    return "I'm not sure how to respond to that. Try asking about careers, courses, or how the quiz works!"
