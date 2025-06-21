@@ -1,3 +1,9 @@
+import os
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
 from logic.chatbot import chatbot_response
 
 import os
@@ -84,6 +90,9 @@ def quizbot():
             session['answers'].append(current_q['v'])
         session['quiz_step'] += 1
         return redirect(url_for('quizbot'))
+  if __name__ == "__main__":
+    app.run()
+
 
     return render_template('quizbot.html', question=current_q['q'])
 
